@@ -1,0 +1,11 @@
+{# "templates/index.html" #}
+
+{% extends "_base.html" %}
+
+{% block content %}
+<ol>
+    {% for numbers in number|sort(reverse=True) %}
+    <li>{{ number }}</li>
+    {% endfor %}
+</ol>
+{% endblock content %}
