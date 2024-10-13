@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 
+from data import db
+
 
 app = Flask(__name__)
 
@@ -11,12 +13,13 @@ def index():
 
 @app.get("/menu-ababagalamaga/")
 def menu():
-    pizzas = [
-        {"name": "Пепероні", "price": 22, "ingredients": "ковбаса 'Пепероні', сир, соус"},
-        {"name": "Пепероні", "price": 29, "ingredients": "ковбаса 'Пепероні', сир, соус"},
-        {"name": "Моцарела", "price": 20, "ingredients": "сир 'Моцарела', соус, петрушка"},
-        {"name": "Чотири сира", "price": 30, "ingredients": "сир 'Моцарела', сир 'Чедер', сир 'Сологуні', сир 'Брі'"}
-    ]
+    pizzas_db = db.get_pizzas()
+    pizzas = []
+    for pizza in pizzas_db:
+        pizzas.append(
+            {"name": pizza[1], "ingredients": pizza[2], "price": pizza[3]}
+        )
+
     context = {
         "pizzas": pizzas,
         "title": "Мега меню"
